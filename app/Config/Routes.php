@@ -29,8 +29,24 @@ $routes->set404Override();
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'Home::index');
+$routes->get('/', 'DashboardController::index', ['filter' => 'role:admin', 'as' => 'dashboard']);
 
+$routes->group('produk', static function($routes){
+    $routes->get('', 'ProdukController::index', ['filter' => 'role:admin', 'as' => 'produk']);
+
+    $routes->get('(:num)', 'ProdukController::edit/$1', ['filter' => 'role:admin', 'as' => 'edit.produk']);
+    $routes->post('(:num)', 'ProdukController::update/$1', ['filter' => 'role:admin', 'as' => 'update.produk']);
+
+    $routes->delete('delete/(:num)', 'ProdukController::delete/$1', ['filter' => 'role:admin', 'as' => 'delete.produk']);
+
+    $routes->get('tambah-produk', 'ProdukController::insert', ['filter' => 'role:admin', 'as' => 'add.produk']);
+    $routes->post('simpan-produk', 'ProdukController::store', ['filter' => 'role:admin', 'as' => 'store.produk']);
+});
+
+$routes->group('profile', static function($routes){
+    $routes->get('(:num)', 'ProfileController::index/$1', ['filter' => 'role:admin', 'as' => 'profile']);
+    $routes->post('(:num)', 'ProfileController::update/$1', ['filter' => 'role:admin', 'as' => 'update.profile']);
+});
 /*
  * --------------------------------------------------------------------
  * Additional Routing
