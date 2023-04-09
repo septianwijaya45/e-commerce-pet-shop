@@ -4,7 +4,7 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class CreateProductTables extends Migration
+class CreateOrderDetailTables extends Migration
 {
     public function up()
     {
@@ -15,29 +15,21 @@ class CreateProductTables extends Migration
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
-			'nama' => [
+            'kode_order' => [
                 'type'       => 'VARCHAR',
-                'constraint' => '255',
+                'constraint' => '255'
             ],
-			'id_kategori' => [
+            'id_produk' => [
                 'type'       => 'INT',
                 'constraint' => '11',
                 'unsigned'   => true
             ],
-			'netto' => [
-                'type'       => 'VARCHAR',
-                'constraint' => '255',
-            ],
-			'satuan' => [
-                'type'       => 'VARCHAR',
-                'constraint' => '255',
-            ],
-			'stok' => [
+			'total_produk' => [
                 'type'       => 'INTEGER',
                 'constraint' => '11',
             ],
-			'harga' => [
-                'type'       => 'INTEGER',
+			'total_harga' => [
+                'type'       => 'FLOAT',
                 'constraint' => '11',
             ],
             'createdAt' => [
@@ -50,8 +42,8 @@ class CreateProductTables extends Migration
 			]
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->addForeignKey('id_kategori', 'kategories', 'id', 'CASCADE', 'CASCADE');
-        $this->forge->createTable('produks');
+        $this->forge->addForeignKey('id_produk', 'produks', 'id', 'CASCADE', 'CASCADE');
+        $this->forge->createTable('order_details');
     }
 
     public function down()

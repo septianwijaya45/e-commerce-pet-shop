@@ -4,7 +4,7 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class CreateProductTables extends Migration
+class CreateProfilTokoTables extends Migration
 {
     public function up()
     {
@@ -15,30 +15,27 @@ class CreateProductTables extends Migration
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
-			'nama' => [
+            'nama_toko' => [
+                'type'       => 'VARCHAR',
+                'constraint' => '255'
+            ],
+            'foto_toko' => [
+                'type'       => 'VARCHAR',
+                'constraint' => '255'
+            ],
+			'alamat' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '255',
             ],
-			'id_kategori' => [
-                'type'       => 'INT',
-                'constraint' => '11',
-                'unsigned'   => true
+            'latitute'    => [
+                'type'          => 'DOUBLE',
+                'constraint'    => '32',
+                'null'          => TRUE
             ],
-			'netto' => [
-                'type'       => 'VARCHAR',
-                'constraint' => '255',
-            ],
-			'satuan' => [
-                'type'       => 'VARCHAR',
-                'constraint' => '255',
-            ],
-			'stok' => [
-                'type'       => 'INTEGER',
-                'constraint' => '11',
-            ],
-			'harga' => [
-                'type'       => 'INTEGER',
-                'constraint' => '11',
+            'longitude'    => [
+                'type'          => 'DOUBLE',
+                'constraint'    => '32',
+                'null'          => TRUE
             ],
             'createdAt' => [
 				'type'		 => 'DATETIME',
@@ -50,8 +47,7 @@ class CreateProductTables extends Migration
 			]
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->addForeignKey('id_kategori', 'kategories', 'id', 'CASCADE', 'CASCADE');
-        $this->forge->createTable('produks');
+        $this->forge->createTable('profiltokos');
     }
 
     public function down()

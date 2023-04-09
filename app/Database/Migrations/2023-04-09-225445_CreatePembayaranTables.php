@@ -4,7 +4,7 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class CreateProductTables extends Migration
+class CreatePembayaranTables extends Migration
 {
     public function up()
     {
@@ -15,29 +15,26 @@ class CreateProductTables extends Migration
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
-			'nama' => [
-                'type'       => 'VARCHAR',
-                'constraint' => '255',
-            ],
-			'id_kategori' => [
+            'id_user' => [
                 'type'       => 'INT',
                 'constraint' => '11',
                 'unsigned'   => true
             ],
-			'netto' => [
-                'type'       => 'VARCHAR',
-                'constraint' => '255',
-            ],
-			'satuan' => [
-                'type'       => 'VARCHAR',
-                'constraint' => '255',
-            ],
-			'stok' => [
-                'type'       => 'INTEGER',
+            'id_member' => [
+                'type'       => 'INT',
                 'constraint' => '11',
+                'unsigned'   => true
             ],
-			'harga' => [
-                'type'       => 'INTEGER',
+            'kode_order' => [
+                'type'       => 'VARCHAR',
+                'constraint' => '255'
+            ],
+            'tgl_pembayaran' => [
+				'type'		 => 'DATETIME',
+				'null'		 => TRUE
+			],
+			'total_pembayaran' => [
+                'type'       => 'FLOAT',
                 'constraint' => '11',
             ],
             'createdAt' => [
@@ -50,8 +47,9 @@ class CreateProductTables extends Migration
 			]
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->addForeignKey('id_kategori', 'kategories', 'id', 'CASCADE', 'CASCADE');
-        $this->forge->createTable('produks');
+        $this->forge->addForeignKey('id_user', 'users', 'id', 'CASCADE', 'CASCADE');
+        $this->forge->addForeignKey('id_member', 'member', 'id', 'CASCADE', 'CASCADE');
+        $this->forge->createTable('pembayarans');
     }
 
     public function down()
